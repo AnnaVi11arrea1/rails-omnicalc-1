@@ -24,11 +24,22 @@ class PagesController < ApplicationController
   end
 
   def payment_results
-    @principal = params.fetch(:pv).to_f
-    @apr = params.fetch(:r).to_f
-    @years = params.fetch(:n).to_f
+    rate_pp = params.fetch("r").to_f
+    rate = (rate_pp/100)/12.to_f
+    r = rate.round(4)
+    num_periods = params.fetch("n").to_i
+    n = (num_periods * 12).to_i
+    pv = params.fetch("pv").to_f
+    numr = r*pv
+    denom = 1-((1 + r)**-n)
 
-    
+    @apr = rate_pp.to_fs(:percentage, { :precision => 4} ) 
+    @years = num_periods
+    @principal = pv.to_fs(:currency)
+
+    payment = (numr/denom).round(2)
+    @payment = payment.to_fs(:currency, { :precision => 2 })
+
     render({ :template => "pages_templates/payment_result"})
   end
 
