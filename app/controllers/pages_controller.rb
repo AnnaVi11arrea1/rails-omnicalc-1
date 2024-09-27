@@ -27,20 +27,20 @@ class PagesController < ApplicationController
 
   def payment_results
     rate_pp = params.fetch(:r).to_f
-    rate = (rate_pp/100)/12.to_f
-    r = rate.round(4)
-    num_periods = params.fetch(:n).to_i
-    n = (num_periods * 12).to_i
+    rate = (rate_pp/100)/12
+    r = rate.to_f
+    years = params.fetch(:n).to_i
+    periods = (years * 12).to_i
     pv = params.fetch(:pv).to_f
     numr = r*pv
-    denom = 1-((1 + r)**-n)
+    denom = 1-((1 + r)**-periods)
 
     @apr = rate_pp.to_fs(:percentage, { :precision => 4} ) 
-    @years = num_periods
-    @principal = pv.to_fs(:currency)
+    @years = years
+    @principal = pv.to_fs(:currency, { :precision => 2})
 
-    payment = (numr/denom).round(2)
-    @payment = payment.to_fs(:currency, { :precision => 2 })
+    @payment = (numr/denom).to_fs(:currency, { :precision => 2 })
+
 
     render({ :template => "pages_templates/payment_result"})
   end
@@ -50,9 +50,10 @@ class PagesController < ApplicationController
   end
 
   def random_results
-    @min = params.fetch(:user_min).to_i
-    @max = params.fetch(:user_max).to_i
+    @min = params.fetch(:user_min).to_f
+    @max = params.fetch(:user_max).to_f
     @result = rand(@min..@max)
+    # @result = rand(@min..@max)
     render({ :template => "pages_templates/random_result"})
   end
 end

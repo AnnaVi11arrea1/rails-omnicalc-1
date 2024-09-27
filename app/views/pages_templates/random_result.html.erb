@@ -1,12 +1,18 @@
-<h1>Random Number Result</h1>
+<h1>Random Results</h1>
 
-<%= params %>
+
 <dl>
   <dt>
-    Range
+    Minimum
   </dt>
   <dd>
-    <%= @min, @max %>
+    <%= @min %>
+  </dd>
+    <dt>
+    Maximum
+  </dt>
+  <dd>
+     <%= @max %>
   </dd>
 
   <dt>
@@ -15,7 +21,7 @@
   <dd>
     <%= @result %>
   </dd>
-<dl>
+</dl>
 
 <a href="random/new">
   Get another random number
