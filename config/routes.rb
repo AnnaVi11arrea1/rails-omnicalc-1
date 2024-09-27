@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   get("/square_root/results", { :controller => "pages", :action => "squareroot_results" })
 
   get("/payment/new", { :controller => "pages", :action => "payment" })
-  get("/payment/results", { :controller => "pages", :action => "payment_results" })
+  get("/payment/result", { :controller => "pages", :action => "payment_results" })
 
 
-  get("/random", { :controller => "pages", :action => "random" })
+  get("/random/new", { :controller => "pages", :action => "random" })
+  get("/random/result", { :controller => "pages", :action => "random_results" })
 end

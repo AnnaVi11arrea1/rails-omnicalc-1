@@ -5,7 +5,7 @@ class PagesController < ApplicationController
 
   def square_result
     @user_number = params.fetch(:user_number)
-    @result = @user_number.to_i * @user_number.to_i
+    @result = @user_number.to_f * @user_number.to_f
     render({ :template => "pages_templates/square_result"})
   end
 
@@ -15,7 +15,7 @@ class PagesController < ApplicationController
 
   def squareroot_results
     @user_number = params.fetch(:user_number2)
-    @result = Math.sqrt(@user_number.to_i)
+    @result = Math.sqrt(@user_number.to_f)
     render({ :template => "pages_templates/squareroot_results"})
   end
 
@@ -45,5 +45,12 @@ class PagesController < ApplicationController
 
   def random
     render({ :template => "pages_templates/random"})
+  end
+
+  def random_results
+    @min = params.fetch(:user_min).to_i
+    @max = params.fetch(:user_max).to_i
+    @result = rand(@min..@max)
+    render({ :template => "pages_templates/random_result"})
   end
 end
