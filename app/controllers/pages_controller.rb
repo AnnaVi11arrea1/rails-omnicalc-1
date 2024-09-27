@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+
+
   def square
     render({ :template => "pages_templates/square" })
   end
@@ -24,12 +26,12 @@ class PagesController < ApplicationController
   end
 
   def payment_results
-    rate_pp = params.fetch("r").to_f
+    rate_pp = params.fetch(:r).to_f
     rate = (rate_pp/100)/12.to_f
     r = rate.round(4)
-    num_periods = params.fetch("n").to_i
+    num_periods = params.fetch(:n).to_i
     n = (num_periods * 12).to_i
-    pv = params.fetch("pv").to_f
+    pv = params.fetch(:pv).to_f
     numr = r*pv
     denom = 1-((1 + r)**-n)
 
